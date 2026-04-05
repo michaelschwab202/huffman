@@ -94,7 +94,7 @@ void destroyTree(TreeNode* root)
 		{
 			search.push(node->right);
 		}
-		delete(node);
+		delete node;
 	}
 }
 
@@ -177,7 +177,7 @@ void writeEncodedContent(std::ifstream& inFile, std::ofstream& outFile, std::str
 	while(inFile.get(c))
 	{
 		std::vector<char>& codeBits = codes[c].bits;
-		for(int i = 0; i < codeBits.size(); i++)
+		for(size_t i = 0; i < codeBits.size(); i++)
 		{
 			if(bitsCounter == 8)
 			{
@@ -189,7 +189,7 @@ void writeEncodedContent(std::ifstream& inFile, std::ofstream& outFile, std::str
 			bitsCounter++;
 		}
 	}
-	unsigned char validBitsInLastByte = (unsigned char)bitsCounter;
+
 	bits = bits << (8 - bitsCounter);
 	outFile.put(bits);
 	
@@ -218,7 +218,7 @@ void encodeFile(std::ifstream& inFile, std::string& outFileName)
 	
 	//cleanup
 	outFile.close();
-	delete freq;
+	delete[] freq;
 }
 
 void decodeFile(std::ifstream& inFile, std::string& outFileName)
@@ -256,7 +256,6 @@ void decodeFile(std::ifstream& inFile, std::string& outFileName)
 	std::ofstream outFile(outFileName, std::ios::binary);
 	TreeNode* root = buildTree(freq);
 	TreeNode* node = root;
-	size_t bitCounter = 0;
 	uint8_t c;
 	while(inFile.get((char&)c))
 	{
@@ -290,7 +289,7 @@ void decodeFile(std::ifstream& inFile, std::string& outFileName)
 	
 	//cleanup
 	outFile.close();
-	delete freq;
+	delete[] freq;
 	
 	freq = nullptr;
 		
