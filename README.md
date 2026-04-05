@@ -30,7 +30,7 @@ Options:
     -d    Decode the file (default is encode)
     -o    Give a name for the output file
 ```
-# Example Usage
+### Example Usage
 Let's say I have **hamlet.txt** and I'd like to encode it. I'd like to name the encoded file **hamlet_encoded.txt**. My huffman program is in my current directory.
 ```bash
 ./huffman hamlet.txt -o hamlet_encoded.txt
